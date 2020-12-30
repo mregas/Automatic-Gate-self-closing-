@@ -1,0 +1,185 @@
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 1
+
+
+
+
+
+       MCS-51 Family Macro Assembler   A S E M - 5 1   V 1.3
+       =====================================================
+
+
+
+	Source File:	C:\Users\asus\Documents\switch.asm
+	Object File:	C:\Users\asus\Documents\switch.hex
+	List File:	C:\Users\asus\Documents\switch.lst
+
+
+
+ Line  I  Addr  Code            Source
+
+    1:		N      0000	org 00h
+    2:		B      00A0	motor  equ p2.0
+    3:		B      00A3	motor1 equ p2.3
+    4:		B      00A6	switch equ p2.6
+    5:
+    6:	  0000			again:
+    7:	  0000	D2 A0		  setb motor
+    8:	  0002	D2 A3		  setb motor1
+    9:	  0004	D2 A6		  setb switch
+   10:	  0006	7B 01		  mov r3, #01h
+   11:	  0008	7C 01		  mov r4, #01h
+   12:
+   13:	  000A			monitor:
+   14:	  000A	D2 A0		  setb motor
+   15:	  000C	D2 A3		  setb motor1
+   16:	  000E	20 A6 F9	  jb   switch, monitor;
+   17:	  0011	80 04		  sjmp rot_motor
+   18:	  0013	80 0C		  sjmp rot_motor1
+   19:	  0015	80 F3		  sjmp monitor
+   20:
+   21:	  0017			rot_motor:
+   22:	  0017	C2 A0		  clr   motor
+   23:	  0019	11 2D		  acall wait
+   24:	  001B	D2 A0		  setb  motor
+   25:	  001D	11 2D		  acall wait
+   26:	  001F	DB F6		  djnz r3, rot_motor
+   27:
+   28:	  0021			rot_motor1:
+   29:	  0021	C2 A3		  clr   motor1
+   30:	  0023	11 2D		  acall wait
+   31:	  0025	D2 A3		  setb  motor1
+   32:	  0027	11 2D		  acall wait
+   33:	  0029	DC F6		  djnz r4, rot_motor1
+   34:
+   35:	  002B	80 D3		  sjmp again
+   36:
+   37:	  002D			wait:
+   38:	  002D	78 10		       mov r0,#10h
+   39:	  002F	79 FF		here3: mov r1,#0ffh
+   40:	  0031	7A FF		here2: mov r2,#0ffh
+   41:	  0033	DA FE		here: djnz r2, here
+   42:	  0035	D9 FA		      djnz r1, here2
+   43:	  0037	D8 F6		      djnz r0, here3
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 2
+
+
+
+ Line  I  Addr  Code            Source
+
+   44:	  0039	22		ret
+   45:				end
+
+
+
+
+
+                     register banks used:  ---
+
+                     no errors
+
+
+
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 3
+
+
+
+
+
+	       L I S T   O F   S Y M B O L S
+	       =============================
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+??ASEM_51			  NUMBER    8051
+??VERSION			  NUMBER    0130
+AC				  BIT	      D6
+ACC				  DATA	      E0
+AGAIN				  CODE	    0000	   6
+B				  DATA	      F0
+CY				  BIT	      D7
+DPH				  DATA	      83
+DPL				  DATA	      82
+EA				  BIT	      AF
+ES				  BIT	      AC
+ET0				  BIT	      A9
+ET1				  BIT	      AB
+EX0				  BIT	      A8
+EX1				  BIT	      AA
+EXTI0				  CODE	    0003
+EXTI1				  CODE	    0013
+F0				  BIT	      D5
+HERE				  CODE	    0033	  41
+HERE2				  CODE	    0031	  40
+HERE3				  CODE	    002F	  39
+IE				  DATA	      A8
+IE0				  BIT	      89
+IE1				  BIT	      8B
+INT0				  BIT	      B2
+INT1				  BIT	      B3
+IP				  DATA	      B8
+IT0				  BIT	      88
+IT1				  BIT	      8A
+MONITOR				  CODE	    000A	  13
+MOTOR				  NUMBER    00A0	   2
+MOTOR1				  NUMBER    00A3	   3
+OV				  BIT	      D2
+P				  BIT	      D0
+P0				  DATA	      80
+P1				  DATA	      90
+P2				  DATA	      A0
+P3				  DATA	      B0
+PCON				  DATA	      87
+PS				  BIT	      BC
+PSW				  DATA	      D0
+PT0				  BIT	      B9
+PT1				  BIT	      BB
+PX0				  BIT	      B8
+PX1				  BIT	      BA
+RB8				  BIT	      9A
+RD				  BIT	      B7
+REN				  BIT	      9C
+RESET				  CODE	    0000
+RI				  BIT	      98
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 4
+
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+ROT_MOTOR			  CODE	    0017	  21
+ROT_MOTOR1			  CODE	    0021	  28
+RS0				  BIT	      D3
+RS1				  BIT	      D4
+RXD				  BIT	      B0
+SBUF				  DATA	      99
+SCON				  DATA	      98
+SINT				  CODE	    0023
+SM0				  BIT	      9F
+SM1				  BIT	      9E
+SM2				  BIT	      9D
+SP				  DATA	      81
+SWITCH				  NUMBER    00A6	   4
+T0				  BIT	      B4
+T1				  BIT	      B5
+TB8				  BIT	      9B
+TCON				  DATA	      88
+TF0				  BIT	      8D
+TF1				  BIT	      8F
+TH0				  DATA	      8C
+TH1				  DATA	      8D
+TI				  BIT	      99
+TIMER0				  CODE	    000B
+TIMER1				  CODE	    001B
+TL0				  DATA	      8A
+TL1				  DATA	      8B
+TMOD				  DATA	      89
+TR0				  BIT	      8C
+TR1				  BIT	      8E
+TXD				  BIT	      B1
+WAIT				  CODE	    002D	  37
+WR				  BIT	      B6
